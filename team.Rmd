@@ -14,5 +14,10 @@ gss = readxl::read_xls('./data.xls')
 ## Data Setup
 
 ```{r}
+# Load data
+data = readxl::read_xls('data.xls')
 
+names(data) = c('year', 'understanding', 'happiness', 'political_party', 'region', 'total_income', 'race', 'sex', 'num_children', 'spouse_hours_work_week', 'marital_status', 'respondent_id', 'ballot_used')
 ```
+
+### 1.
