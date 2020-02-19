@@ -19,13 +19,28 @@ names(gss) = c('year', 'understanding', 'happiness', 'political_party', 'region'
 
 ### 1.
 ```{r}
-ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar()
+gss$marital_status = factor(gss$marital_status, levels=c('No answer', 'Never married', 'Divorced', 'Separated', 'Widowed', 'Married', 'NA'))
+ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill')
 ```
 
 ### 2.
 
 
+
+```{r}
+ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill') + facet_grid(marital_status ~ sex) + coord_flip()
+```
+
 ### 3.
 
 
+
 ### 4.
+
+#### 1.
+
+#### 2.
+
+#### 3.
+
+#### 4.
