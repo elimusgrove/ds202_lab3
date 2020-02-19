@@ -11,5 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load data
 data = readxl::read_xls('data.xls')
 
-str(data)
+names(data) = c('year', 'understanding', 'happiness', 'political_party', 'region', 'total_income', 'race', 'sex', 'num_children', 'spouse_hours_work_week', 'marital_status', 'respondent_id', 'ballot_used')
 ```
+
+### 1.
