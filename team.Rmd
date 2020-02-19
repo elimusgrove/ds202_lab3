@@ -8,5 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+# Load data
+data = readxl::read_xls('data.xls')
 
+str(data)
 ```
