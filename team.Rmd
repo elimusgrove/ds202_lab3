@@ -21,3 +21,11 @@ names(gss) = c('year', 'understanding', 'happiness', 'political_party', 'region'
 ```{r}
 ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar()
 ```
+
+### 2.
+
+
+### 3.
+
+
+### 4.
