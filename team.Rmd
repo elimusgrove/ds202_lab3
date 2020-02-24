@@ -18,14 +18,28 @@ names(gss) = c('year', 'understanding', 'happiness', 'political_party', 'region'
 ```
 
 ### 1.
+
+##### Marital status seems to have a small effect on happiness. Looking at the married category, the total number of people who are 'very happy' is higher than any other marriage category. Married people are also the lowest in the 'not too happy' category than any other happiness level. The other marriage categories are roughly equal for all other happiness levels. Couples are happier when they are together 
+##### Variables Used: marital_status, happiness
 ```{r}
-ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar()
+gss$marital_status = factor(gss$marital_status, levels=c('No answer', 'Never married', 'Divorced', 'Separated', 'Widowed', 'Married', 'NA'))
+ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill')
 ```
 
 ### 2.
 
+##### There isn't a difference between men and women in the happiness levels at each marriage category. However, something interesting is that there were far more female windowed responders in the data.
+```{r}
+ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar() + facet_wrap(~sex) + coord_flip()
+```
 
 ### 3.
 
+##### In general, self-identified republicans seem to be happier than self-identified democrats. There seems to be a general trend that the stronger the political identify one has the happier they are in relation to those of the same party at a weaker identification level. Those that aren't involved in politics were either very happy or very unhappy. Those that didn't answer political association also at high rates didn't enter their happiness level.
+```{r}
+gss$political_party = factor(gss$political_party, levels=c('Strong republican', 'Not str republican', 'Ind,near rep', 'Independent', 'Ind,near dem', 'Not str democrat', 'Strong democrat', 'Other party', 'No answer', 'Don\'t know'))
+ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') +  coord_flip()
+```
 
 ### 4.
+
