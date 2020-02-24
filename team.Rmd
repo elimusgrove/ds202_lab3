@@ -48,26 +48,42 @@ ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') 
 
 ### 4.
 
-##### 4.1 How has happiness levels changed over time between men and women?
+1. Does understanding the question correlate with a person's happiness? Is ignorance truly bliss? Which political party is unable to understand a question?
+
+First question is to see if happiness correlates with understanding
+
 ```{r}
+gss$understanding = factor(gss$understanding, levels=c('No answer', "Don't know", 'Poor', 'Fair', 'Good', 'NA'))
+ggplot(gss, aes(x=understanding, fill=happiness)) + geom_bar(position='fill')
 
 ```
 
-##### 4.2 How have the number of children people have changed over time?
+#### According to this bar plot, it can be seen that the general understanding of the question seems to only effect happiness at the very extremes, the people that did not understand the question (answered 'Don't know') and the people that truly understood the question seem to have a higher concentration of happiness than any of the other answers. BUT you can also see that there is a suspiciously high number of 'not applicable' answers for people that didn't understand the question, which might have skewed the results some.
 
+Now to see if this has anything to do with political party, lets take a look.
 
-##### 4.3 How does the number of children affect happiness levels?
-
-
-##### 4.4 How does race affect total income?
-Race seems to be correlated with income. About 25% of black participants answered that their income was $10000 or less while about half that amount answered for white and other participants.
 ```{r}
-gss$total_income[gss$total_income %in% c('Lt $1000', '$1000 to 2999', '$3000 to 3999', '$4000 to 4999')] = '$0 - 4999'
-gss$total_income[gss$total_income %in% c('$5000 to 5999', '$6000 to 6999', '$7000 to 7999', '$8000 to 9999')] = '$5000 - 9999'
-gss$total_income = gss$total_income[!(gss$total_income == 'Don\'t know'), ]
-
-gss$total_income = factor(gss$total_income, levels=c('$0 - 4999', '$5000 - 9999', '$10000 - 14999', '$15000 - 19999', '$20000 - 24999', '$25000 or more', 'Don\'t know', 'Refused', 'No answer', 'Not applicable'))
-
-levels(gss$total_income)
-ggplot(gss, aes(x=race, fill=total_income)) + geom_bar(position='fill')
+ggplot(gss, aes(x=political_party, fill=understanding)) + geom_bar(position='fill') + coord_flip()
 ```
+
+#### It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections. But republicans seem to have a much higher self-identified understanding of questions than any other political party.
+
+2. Ooh, does your political leanings effect the number of children that a person has? Does gender have anything to do with this?
+
+```{r}
+gss$num_children = factor(gss$num_children, levels=c('Dk na', '0', '1', '2', '3', '4', '5', '6', '7', 'Eight or more', 'NA'))
+ggplot(gss, aes(x=political_party, fill=num_children)) + geom_bar(position='fill') + coord_flip()
+```
+
+#### It would appear that the different political leanings have almost identical children distributions, but people that didn't answer this question seem to have fewer children with no answers of 'Eight or more' for the 'Don't know' category.
+
+Lets see how gender effects this.
+
+```{r}
+ggplot(gss, aes(x=sex, fill=num_children)) + geom_bar(position='fill') + coord_flip() + facet_wrap(~political_party)
+```
+
+#### Interesting enough, biology would rule that men should be fathering more children than women are, but it appears to be going the other way according to this. Though there isn't a strong differentiation between any of the political parties, which is what I really wanted to see.
+
+3. 
+4. 
