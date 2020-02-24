@@ -47,3 +47,27 @@ ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') 
 
 
 ### 4.
+
+##### 4.1 How has happiness levels changed over time between men and women?
+```{r}
+
+```
+
+##### 4.2 How have the number of children people have changed over time?
+
+
+##### 4.3 How does the number of children affect happiness levels?
+
+
+##### 4.4 How does race affect total income?
+Race seems to be correlated with income. About 25% of black participants answered that their income was $10000 or less while about half that amount answered for white and other participants.
+```{r}
+gss$total_income[gss$total_income %in% c('Lt $1000', '$1000 to 2999', '$3000 to 3999', '$4000 to 4999')] = '$0 - 4999'
+gss$total_income[gss$total_income %in% c('$5000 to 5999', '$6000 to 6999', '$7000 to 7999', '$8000 to 9999')] = '$5000 - 9999'
+gss$total_income = gss$total_income[!(gss$total_income == 'Don\'t know'), ]
+
+gss$total_income = factor(gss$total_income, levels=c('$0 - 4999', '$5000 - 9999', '$10000 - 14999', '$15000 - 19999', '$20000 - 24999', '$25000 or more', 'Don\'t know', 'Refused', 'No answer', 'Not applicable'))
+
+levels(gss$total_income)
+ggplot(gss, aes(x=race, fill=total_income)) + geom_bar(position='fill')
+```
