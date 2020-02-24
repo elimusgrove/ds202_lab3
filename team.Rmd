@@ -66,8 +66,24 @@ Now to see if this has anything to do with political party, lets take a look.
 ggplot(gss, aes(x=political_party, fill=understanding)) + geom_bar(position='fill') + coord_flip()
 ```
 
-#### It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections.
+#### It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections. But republicans seem to have a much higher self-identified understanding of questions than any other political party.
 
-2. 
+2. Ooh, does your political leanings effect the number of children that a person has? Does gender have anything to do with this?
+
+```{r}
+gss$num_children = factor(gss$num_children, levels=c('Dk na', '0', '1', '2', '3', '4', '5', '6', '7', 'Eight or more', 'NA'))
+ggplot(gss, aes(x=political_party, fill=num_children)) + geom_bar(position='fill') + coord_flip()
+```
+
+#### It would appear that the different political leanings have almost identical children distributions, but people that didn't answer this question seem to have fewer children with no answers of 'Eight or more' for the 'Don't know' category.
+
+Lets see how gender effects this.
+
+```{r}
+ggplot(gss, aes(x=sex, fill=num_children)) + geom_bar(position='fill') + coord_flip() + facet_wrap(~political_party)
+```
+
+#### Interesting enough, biology would rule that men should be fathering more children than women are, but it appears to be going the other way according to this. Though there isn't a strong differentiation between any of the political parties, which is what I really wanted to see.
+
 3. 
 4. 
