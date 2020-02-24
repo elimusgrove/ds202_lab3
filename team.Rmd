@@ -50,7 +50,23 @@ ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') 
 
 1. Does understanding the question correlate with a person's happiness? Is ignorance truly bliss? Which political party is unable to understand a question?
 
+First question is to see if happiness correlates with understanding
 
+```{r}
+gss$understanding = factor(gss$understanding, levels=c('No answer', "Don't know", 'Poor', 'Fair', 'Good', 'NA'))
+ggplot(gss, aes(x=understanding, fill=happiness)) + geom_bar(position='fill')
+
+```
+
+#### According to this bar plot, it can be seen that the general understanding of the question seems to only effect happiness at the very extremes, the people that did not understand the question (answered 'Don't know') and the people that truly understood the question seem to have a higher concentration of happiness than any of the other answers. BUT you can also see that there is a suspiciously high number of 'not applicable' answers for people that didn't understand the question, which might have skewed the results some.
+
+Now to see if this has anything to do with political party, lets take a look.
+
+```{r}
+ggplot(gss, aes(x=political_party, fill=understanding)) + geom_bar(position='fill') + coord_flip()
+```
+
+#### It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections.
 
 2. 
 3. 
