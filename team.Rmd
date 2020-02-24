@@ -33,6 +33,10 @@ ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill')
 ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar() + facet_wrap(~sex) + coord_flip()
 ```
 
+```{r}
+# ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill') + facet_grid(marital_status ~ sex) + coord_flip()
+```
+
 ### 3.
 
 ##### In general, self-identified republicans seem to be happier than self-identified democrats. There seems to be a general trend that the stronger the political identify one has the happier they are in relation to those of the same party at a weaker identification level. Those that aren't involved in politics were either very happy or very unhappy. Those that didn't answer political association also at high rates didn't enter their happiness level.
@@ -41,5 +45,5 @@ gss$political_party = factor(gss$political_party, levels=c('Strong republican', 
 ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') +  coord_flip()
 ```
 
-### 4.
 
+### 4.
