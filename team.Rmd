@@ -47,3 +47,11 @@ ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') 
 
 
 ### 4.
+
+1. Does understanding the question correlate with a person's happiness? Is ignorance truly bliss? Which political party is unable to understand a question?
+
+
+
+2. 
+3. 
+4. 
