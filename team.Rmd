@@ -19,8 +19,8 @@ names(gss) = c('year', 'understanding', 'happiness', 'political_party', 'region'
 
 ### 1.
 
-##### Marital status seems to have a small effect on happiness. Looking at the married category, the total number of people who are 'very happy' is higher than any other marriage category. Married people are also the lowest in the 'not too happy' category than any other happiness level. The other marriage categories are roughly equal for all other happiness levels. Couples are happier when they are together 
-##### Variables Used: marital_status, happiness
+Marital status seems to have a small effect on happiness. Looking at the married category, the total number of people who are 'very happy' is higher than any other marriage category. Married people are also the lowest in the 'not too happy' category than any other happiness level. The other marriage categories are roughly equal for all other happiness levels. Couples are happier when they are together 
+Variables Used: marital_status, happiness
 ```{r}
 gss$marital_status = factor(gss$marital_status, levels=c('No answer', 'Never married', 'Divorced', 'Separated', 'Widowed', 'Married', 'NA'))
 ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill')
@@ -28,18 +28,16 @@ ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill')
 
 ### 2.
 
-##### There isn't a difference between men and women in the happiness levels at each marriage category. However, something interesting is that there were far more female windowed responders in the data.
+There isn't a difference between men and women in the happiness levels at each marriage category. However, something interesting is that there were far more female windowed responders in the data.
+Variables Used: marital_status, happiness, sex
 ```{r}
 ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar() + facet_wrap(~sex) + coord_flip()
 ```
 
-```{r}
-# ggplot(gss, aes(x=marital_status, fill=happiness)) + geom_bar(position='fill') + facet_grid(marital_status ~ sex) + coord_flip()
-```
-
 ### 3.
 
-##### In general, self-identified republicans seem to be happier than self-identified democrats. There seems to be a general trend that the stronger the political identify one has the happier they are in relation to those of the same party at a weaker identification level. Those that aren't involved in politics were either very happy or very unhappy. Those that didn't answer political association also at high rates didn't enter their happiness level.
+In general, self-identified republicans seem to be happier than self-identified democrats. There seems to be a general trend that the stronger the political identify one has the happier they are in relation to those of the same party at a weaker identification level. Those that aren't involved in politics were either very happy or very unhappy. Those that didn't answer political association also at high rates didn't enter their happiness level.
+Variables Used: political_party, happiness
 ```{r}
 gss$political_party = factor(gss$political_party, levels=c('Strong republican', 'Not str republican', 'Ind,near rep', 'Independent', 'Ind,near dem', 'Not str democrat', 'Strong democrat', 'Other party', 'No answer', 'Don\'t know'))
 ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') +  coord_flip()
@@ -50,7 +48,9 @@ ggplot(gss, aes(x=political_party, fill=happiness)) + geom_bar(position='fill') 
 
 1. Does understanding the question correlate with a person's happiness? Is ignorance truly bliss? Which political party is unable to understand a question?
 
-First question is to see if happiness correlates with understanding
+Variables Used: understanding, happiness, political_party
+
+First question is to see if happiness correlates with understanding.
 
 ```{r}
 gss$understanding = factor(gss$understanding, levels=c('No answer', "Don't know", 'Poor', 'Fair', 'Good', 'NA'))
@@ -58,7 +58,7 @@ ggplot(gss, aes(x=understanding, fill=happiness)) + geom_bar(position='fill')
 
 ```
 
-#### According to this bar plot, it can be seen that the general understanding of the question seems to only effect happiness at the very extremes, the people that did not understand the question (answered 'Don't know') and the people that truly understood the question seem to have a higher concentration of happiness than any of the other answers. BUT you can also see that there is a suspiciously high number of 'not applicable' answers for people that didn't understand the question, which might have skewed the results some.
+According to this bar plot, it can be seen that the general understanding of the question seems to only effect happiness at the very extremes, the people that did not understand the question (answered 'Don't know') and the people that truly understood the question seem to have a higher concentration of happiness than any of the other answers. BUT you can also see that there is a suspiciously high number of 'not applicable' answers for people that didn't understand the question, which might have skewed the results some.
 
 Now to see if this has anything to do with political party, lets take a look.
 
@@ -66,16 +66,18 @@ Now to see if this has anything to do with political party, lets take a look.
 ggplot(gss, aes(x=political_party, fill=understanding)) + geom_bar(position='fill') + coord_flip()
 ```
 
-#### It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections. But republicans seem to have a much higher self-identified understanding of questions than any other political party.
+It would appear that if you didn't understand the question from the above  bar chart, then you probably don't have a political affiliation, or did not asnwer the survey as the top two rows have the highest focus of 'Poor'  or 'No answer' selections. But republicans seem to have a much higher self-identified understanding of questions than any other political party.
 
 2. Ooh, does your political leanings effect the number of children that a person has? Does gender have anything to do with this?
+
+Variables Used: num_children, political_party, sex
 
 ```{r}
 gss$num_children = factor(gss$num_children, levels=c('Dk na', '0', '1', '2', '3', '4', '5', '6', '7', 'Eight or more', 'NA'))
 ggplot(gss, aes(x=political_party, fill=num_children)) + geom_bar(position='fill') + coord_flip()
 ```
 
-#### It would appear that the different political leanings have almost identical children distributions, but people that didn't answer this question seem to have fewer children with no answers of 'Eight or more' for the 'Don't know' category.
+It would appear that the different political leanings have almost identical children distributions, but people that didn't answer this question seem to have fewer children with no answers of 'Eight or more' for the 'Don't know' category.
 
 Lets see how gender effects this.
 
@@ -83,7 +85,35 @@ Lets see how gender effects this.
 ggplot(gss, aes(x=sex, fill=num_children)) + geom_bar(position='fill') + coord_flip() + facet_wrap(~political_party)
 ```
 
-#### Interesting enough, biology would rule that men should be fathering more children than women are, but it appears to be going the other way according to this. Though there isn't a strong differentiation between any of the political parties, which is what I really wanted to see.
+Interestingly enough, biology would rule that men should be fathering more children than women are, but it appears to be going the other way according to this. Though there isn't a strong differentiation between any of the political parties, which is what I really wanted to see.
 
-3. 
-4. 
+3. How does the region affect political leanings?
+
+Variables Used: political_party, region
+
+This graph reveals that a large percentage of the respondents in the Middle Atlantic region didn't know their political association. This is very counter-intuitive as this region is centered around Washington D.C. where our nation's capital is. Intuition would say this would be a very politically active region. There were also very active regions that didn't have respondents that responded that they didn't know their political association. The most likely answer is that there were very few respondents that answered that they didn't know their political association, so the sample size doesn't accurately reflect those that don't identify with a party.
+
+```{r}
+ggplot(gss, aes(x=political_party, fill=region)) + geom_bar(position='fill') + coord_flip()
+```
+
+The overall distribution of political association between each region is virtually identical. This is likely because these are very large geographical areas and a political split can be vary large inside an individual region. 
+
+```{r}
+ggplot(gss, aes(x=region, fill=political_party)) + geom_bar(position='fill') + coord_flip()
+```
+
+4. How does a person's race correlate with their income?
+
+Variables Used: total_income, race
+
+There is a stark difference between income between black and white respondents. Outside of those that didn't directly answer their income, the largest group of white respondents answered $25000 or more while the largest percentage of black respondents answered less than \$1000. There is also a right skew in the data of white respondents and a polar opposite left skew among black respondents toward the opposite end of the income scale.
+
+There is an even distribution of income among those of a race outside of white/black.
+
+Another interesting thing is that the largest number of respondents who refused  or didn't answer their income were white.
+
+```{r}
+gss$total_income = factor(gss$total_income, levels=c('Refused', 'Not applicable', 'No answer', 'Don\t know', 'Lt $1000', '$1000 to 2999', '$3000 to 3999', '$4000 to 4999', '$5000 to 5999', '$6000 to 6999', '$7000 to 7999', '$8000 to 8999', '$10000 - 14999', '$15000 - 19999', '$20000 - 24999', '$25000 or more'))
+ggplot(gss, aes(x=total_income, fill=race)) + geom_bar(position='fill') + coord_flip()
+```
